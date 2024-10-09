@@ -1,0 +1,2 @@
+# inditex
+Kata for GFT

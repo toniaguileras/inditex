@@ -1,40 +1,48 @@
 package toni.aguilera.inditex.infraestructure.controller;
 
+import toni.aguilera.inditex.application.PricesDto;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class ProductResponse {
     private String productId;
+    private String startDate;
+    private String endDate;
     private Integer priceList;
-    private String applicationDate;
     private Double price;
 
     public String getProductId() {
         return productId;
     }
 
-    public void setProductId(String productId) {
-        this.productId = productId;
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public String getEndDate() {
+        return endDate;
     }
 
     public Integer getPriceList() {
         return priceList;
     }
 
-    public void setPriceList(Integer priceList) {
-        this.priceList = priceList;
-    }
-
-    public String getApplicationDate() {
-        return applicationDate;
-    }
-
-    public void setApplicationDate(String applicationDate) {
-        this.applicationDate = applicationDate;
-    }
-
     public Double getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public ProductResponse(String productId, String startDate, String endDate, Integer priceList, Double price) {
+        this.productId = productId;
+        this.priceList = priceList;
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.price = price;
+    }
+
+    public static List<ProductResponse> map(List<PricesDto> dtos) {
+        List<ProductResponse> response = new ArrayList<>();
+        dtos.forEach(it -> response.add(new ProductResponse(String.valueOf(it.getProductId()), it.getStartDate(), it.getEndDate(), it.getPriceList(), it.getPrice())));
+        return response;
     }
 }

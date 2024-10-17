@@ -1,10 +1,12 @@
 package toni.aguilera.inditex.infraestructure;
 
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 @SpringJUnitConfig
+@AutoConfigureMockMvc
 public abstract class IntegrationTestBase {
 
     @DynamicPropertySource

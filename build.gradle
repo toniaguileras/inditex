@@ -22,8 +22,18 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'com.h2database:h2'
     runtimeOnly 'com.h2database:h2'
+    // Testcontainers para JUnit 5
+    testImplementation 'org.testcontainers:junit-jupiter:1.19.1'
+
+    // JDBC Testcontainers para bases de datos en memoria
+    testImplementation 'org.testcontainers:jdbc:1.19.1'
+
+    // Si estás utilizando H2
+    testImplementation 'com.h2database:h2:2.1.214'
+
+    // Dependencias de Spring Boot para pruebas
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
 }
 
 tasks.named('test') {

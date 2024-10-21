@@ -20,12 +20,6 @@ public class PricesDto {
         this.price = price;
     }
 
-    public static List<PricesDto> map(List<Product> products) {
-        List<PricesDto> response = new ArrayList<>();
-        products.forEach(it -> response.add(new PricesDto(it.getProductId().getId(), it.getStartDate().format(), it.getEndDate().format(), it.getPriceList(), it.getPrice())));
-        return response;
-    }
-
     public int getProductId() {
         return productId;
     }
@@ -44,5 +38,11 @@ public class PricesDto {
 
     public Double getPrice() {
         return price;
+    }
+
+    public static List<PricesDto> map(List<Product> products) {
+        List<PricesDto> response = new ArrayList<>();
+        products.forEach(it -> response.add(new PricesDto(it.getProductId().getId(), it.getStartDate().format(), it.getEndDate().format(), it.getPriceList(), it.getPrice())));
+        return response;
     }
 }

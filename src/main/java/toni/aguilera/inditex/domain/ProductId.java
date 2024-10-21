@@ -1,7 +1,7 @@
 package toni.aguilera.inditex.domain;
 
 public class ProductId {
-    private Integer id;
+    private final Integer id;
 
     public Integer getId() {
         return id;

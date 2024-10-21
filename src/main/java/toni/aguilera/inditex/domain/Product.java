@@ -5,11 +5,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Product {
-    private ProductId productId;
-    private ApplicationTime startDate;
-    private ApplicationTime endDate;
-    private Integer priceList;
-    private Double price;
+    private final ProductId productId;
+    private final ApplicationTime startDate;
+    private final ApplicationTime endDate;
+    private final Integer priceList;
+    private final Double price;
 
     public Product(ProductId productId, LocalDateTime startDate, LocalDateTime endDate, Integer priceList, Double price) {
         this.productId = productId;

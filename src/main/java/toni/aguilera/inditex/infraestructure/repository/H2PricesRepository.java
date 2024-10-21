@@ -10,12 +10,15 @@ import toni.aguilera.inditex.domain.ProductId;
 import toni.aguilera.inditex.domain.ProductQuery;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
 @Repository
 public class H2PricesRepository implements PricesRepository {
     private final NamedParameterJdbcTemplate jdbcTemplate;
+
 
     public H2PricesRepository(NamedParameterJdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -24,10 +27,13 @@ public class H2PricesRepository implements PricesRepository {
     @Override
     public List<Product> find(ProductQuery query) {
         String sql = """
-                SELECT * FROM PRICES WHERE START_DATE <= :date AND END_DATE >= :date AND PRODUCT_ID = :productId AND BRAND_ID = :brand
+                SELECT * FROM PRICES
+                WHERE START_DATE <= :date AND END_DATE >= :date
+                AND PRODUCT_ID = :productId AND BRAND_ID = :brand
                 """;
         Map<String, Object> parameters = Map.of("productId", query.getProductId().getId(),
-                "brand", query.getBrand().getId(), "date", query.getTime());
+                "brand", query.getBrand().getId(),
+                "date", query.getTime().getValue());
         return jdbcTemplate.query(sql, parameters, mapResultSetToProduct());
     }
 

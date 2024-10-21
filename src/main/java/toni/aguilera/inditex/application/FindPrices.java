@@ -14,7 +14,7 @@ public class FindPrices {
     private PricesRepository pricesRepository;
 
     public List<PricesDto> execute(FindPricesCommand command) {
-        Timestamp time = Timestamp.valueOf(command.getApplicationDate());
+        ApplicationTime time = new ApplicationTime(command.getApplicationDate());
         ProductId productId = new ProductId(Integer.valueOf(command.getProductId()));
         Brand brand = new Brand(Integer.valueOf(command.getBrand()));
         List<Product> products = pricesRepository.find(new ProductQuery(time, productId, brand));

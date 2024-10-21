@@ -15,10 +15,8 @@ public class GetProductsController {
 
     @Autowired
     private FindPrices findPrices;
-
-    // fecha de aplicación, identificador de producto, identificador de cadena (?)
     @GetMapping("v1/prices")
-    public ResponseEntity<List<ProductResponse>> get(@PathParam("applicationDate") String applicationDate, @PathParam("productId") String productId, @PathParam("brand") String brand) {
-        return ResponseEntity.ok(ProductResponse.map(findPrices.execute(new FindPricesCommand(applicationDate, productId, brand))));
+    public ResponseEntity<List<ProductResponse>> get(@PathParam("applicationDate") String applicationDate, @PathParam("productId") String productId, @PathParam("brandId") String brandId) {
+        return ResponseEntity.ok(ProductResponse.map(findPrices.execute(new FindPricesCommand(applicationDate, productId, brandId))));
     }
 }

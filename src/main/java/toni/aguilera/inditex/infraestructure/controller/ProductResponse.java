@@ -6,13 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductResponse {
-    private String productId;
+    private Integer productId;
     private String startDate;
     private String endDate;
     private Integer priceList;
     private Double price;
 
-    public String getProductId() {
+    public Integer getProductId() {
         return productId;
     }
 
@@ -32,7 +32,7 @@ public class ProductResponse {
         return price;
     }
 
-    public ProductResponse(String productId, String startDate, String endDate, Integer priceList, Double price) {
+    public ProductResponse(Integer productId, String startDate, String endDate, Integer priceList, Double price) {
         this.productId = productId;
         this.priceList = priceList;
         this.startDate = startDate;
@@ -42,7 +42,7 @@ public class ProductResponse {
 
     public static List<ProductResponse> map(List<PricesDto> dtos) {
         List<ProductResponse> response = new ArrayList<>();
-        dtos.forEach(it -> response.add(new ProductResponse(String.valueOf(it.getProductId()), it.getStartDate(), it.getEndDate(), it.getPriceList(), it.getPrice())));
+        dtos.forEach(it -> response.add(new ProductResponse(it.getProductId(), it.getStartDate(), it.getEndDate(), it.getPriceList(), it.getPrice())));
         return response;
     }
 }

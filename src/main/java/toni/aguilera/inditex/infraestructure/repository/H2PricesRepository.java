@@ -1,6 +1,5 @@
 package toni.aguilera.inditex.infraestructure.repository;
 
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -9,9 +8,7 @@ import toni.aguilera.inditex.domain.Product;
 import toni.aguilera.inditex.domain.ProductId;
 import toni.aguilera.inditex.domain.ProductQuery;
 
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -40,8 +37,8 @@ public class H2PricesRepository implements PricesRepository {
     private RowMapper<Product> mapResultSetToProduct() {
         return (rs, rowNum) -> {
             ProductId productId = new ProductId(rs.getInt("product_id"));
-            Timestamp startDate = rs.getObject("start_date", Timestamp.class);
-            Timestamp endDate = rs.getObject("end_date", Timestamp.class);
+            LocalDateTime startDate = rs.getObject("start_date", LocalDateTime.class);
+            LocalDateTime endDate = rs.getObject("end_date", LocalDateTime.class);
             Integer priceList = rs.getInt("price_list");
             Double price = rs.getDouble("price");
             return new Product(productId, startDate, endDate, priceList, price);

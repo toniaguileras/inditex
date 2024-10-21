@@ -22,7 +22,7 @@ public class PricesDto {
 
     public static List<PricesDto> map(List<Product> products) {
         List<PricesDto> response = new ArrayList<>();
-        products.forEach(it -> response.add(new PricesDto(it.getProductId().getId(), it.getStartDate(), it.getEndDate(), it.getPriceList(), it.getPrice())));
+        products.forEach(it -> response.add(new PricesDto(it.getProductId().getId(), it.getStartDate().format(), it.getEndDate().format(), it.getPriceList(), it.getPrice())));
         return response;
     }
 

@@ -6,25 +6,24 @@ import java.time.format.DateTimeFormatter;
 
 public class Product {
     private ProductId productId;
-    private String startDate;
-    private String endDate;
+    private ApplicationTime startDate;
+    private ApplicationTime endDate;
     private Integer priceList;
     private Double price;
 
     public Product(ProductId productId, LocalDateTime startDate, LocalDateTime endDate, Integer priceList, Double price) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         this.productId = productId;
-        this.startDate = formatter.format(startDate);
-        this.endDate = formatter.format(endDate);
+        this.startDate = new ApplicationTime(startDate);
+        this.endDate = new ApplicationTime(endDate);
         this.priceList = priceList;
         this.price = price;
     }
 
-    public String getStartDate() {
+    public ApplicationTime getStartDate() {
         return startDate;
     }
 
-    public String getEndDate() {
+    public ApplicationTime getEndDate() {
         return endDate;
     }
 

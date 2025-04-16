@@ -120,6 +120,19 @@ public class GetProductsShould extends IntegrationTestBase {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
     }
+    @Test
+    void should_return_bad_request_when_application_has_invalid_format() throws Exception {
+        String time = "2025-04-16";
+        int productId = 1111;
+        int brandId = 2;
+
+        mockMvc.perform(get("/v1/prices")
+                        .param("applicationDate", time)
+                        .param("productId", String.valueOf(productId))
+                        .param("brandId", String.valueOf(brandId))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest());
+    }
 
     private String jsonFrom(String fileName) throws Exception {
         ClassPathResource resource = new ClassPathResource(fileName);

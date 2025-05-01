@@ -120,6 +120,7 @@ public class GetProductsShould extends IntegrationTestBase {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
     }
+
     @Test
     void should_return_bad_request_when_application_has_invalid_format() throws Exception {
         String time = "2025-04-16";

@@ -1,60 +1,72 @@
-# Prueba técnica Inditex Core Platform
+# Inditex Prices Project
 
-## Descripción del problema
+Welcome, and thank you for reviewing this project/Kata developed for **Paradigma Digital**.  
+This document contains essential information regarding the structure and operation of the application.
 
-Dentro del sistema core del ecommerce de Inditex mantenemos una base de datos que almacena los precios de los productos para cada una de las marcas. Para gestionar esta información, utilizamos una tabla llamada "PRICES". Esta tabla contiene los datos esenciales de los precios de productos, como el precio final de venta (PVP), la tarifa a aplicar en un determinado rango de fechas y otros detalles relevantes. A continuación, se presenta un ejemplo de la estructura de la tabla junto con una breve descripción de sus campos:
+The project follows a **hexagonal architecture**, divided into the following layers: **infrastructure**, **application**, and **domain**.
 
-- `BRAND_ID`: Este campo representa un identificador único para la marca a la que pertenece el producto (por ejemplo, "1" podría representar a la marca ZARA).
+---
 
-- `START_DATE` y `END_DATE`: Estos campos definen un rango de fechas durante el cual un precio y una tarifa son aplicables para un producto específico. Indican la fecha de inicio y la fecha de finalización de la validez del precio y la tarifa.
+## 🏗️ Infrastructure
 
-- `PRICE_LIST`: Aquí encontramos un identificador que corresponde a la tarifa específica que se aplica a un producto en un período determinado.
+- The infrastructure layer is organized into two main packages:
+  - One dedicated to the application **controllers**.
+  - Another called **repository**, responsible for database access and data persistence.
+- While the current size of the project does not necessitate deeper modularization, future scaling would benefit from organizing domain objects (e.g., `prices`, `products`, `users`) into dedicated sub-packages.
 
-- `PRODUCT_ID`: Este campo almacena un identificador único para cada producto, permitiendo la identificación individual de los artículos en el catálogo.
+---
 
-- `PRIORITY`: Un valor numérico que se utiliza para desambiguar la aplicación de precios en caso de que dos tarifas coincidan en un rango de fechas. La tarifa con la prioridad más alta es la que aplica y por lo tanto la que se debe utilizar.
+## 🚆 Application
 
-- `PRICE`: Indica el precio final de venta del producto en la moneda correspondiente.
+- This layer adheres strictly to hexagonal architecture principles and does **not depend on infrastructure** components.
+- If the application grows, domain-specific services and logic should be modularized into individual packages to improve maintainability.
 
-- `CURR`: Aquí se almacena el código ISO de la moneda en la que se establece el precio.
+---
 
-**Objetivo:**
+## 🧬 Domain
 
-El objetivo principal es crear una aplicación o servicio utilizando el framework Spring Boot que ofrezca un punto de acceso REST para realizar consultas sobre esta base de datos de precios. Este endpoint REST deberá:
+- Java 21’s `record` feature is utilized to model **immutable data carriers**, in accordance with **Domain-Driven Design (DDD)** principles.
+- The **product repository** is abstracted via an `interface`, enabling multiple database implementations within the infrastructure layer.
 
-- Aceptar como parámetros de entrada la fecha de consulta (o aplicación), el identificador del producto y el identificador de la marca.
+---
 
-- Proporcionar como resultado el identificador del producto, el identificador de la marca, la tarifa que se aplica, el intervalo de fechas durante el cual se aplica el precio y el precio final que debe aplicarse.
+## ✨ Beyond the Code
 
-**Base de Datos:**
+- **Docker** is used to fully containerize the application.
+- **MapStruct** is integrated to automate object mapping between domain models and DTOs, including support for mapping to primitive types using annotations and custom methods.
+- The codebase adheres to **SOLID principles** and **clean code** standards.
+- **Testing** has been implemented using **JUnit** and **Mockito**:
+  - The five key test cases needed are provided.
+  - Test responses are stored in the `resources` directory to improve readability.
+  - Both **unit** and **acceptance tests** are included, organized into `application` and `infrastructure` subfolders within the `test` directory.
+  - For future improvements, I consider creating a separate folder such as `integrationTest`.
+- **Swagger** is configured to provide interactive API documentation.
 
-La aplicación debe utilizar una base de datos en memoria del tipo H2, la cual debe ser inicializada con los datos de ejemplo proporcionados en **Tabla de Base de Datos** en el siguiente punto. Si es necesario, puedes modificar los nombres de los campos o agregar nuevos campos según consideres apropiado. Asegúrate de elegir los tipos de datos adecuados para cada campo.
+---
 
-**Tabla de Base de Datos (PRICES):**
+## 🚀 API Usage
 
-| BRAND_ID | START_DATE            | END_DATE              | PRICE_LIST | PRODUCT_ID | PRIORITY | PRICE | CURR |
-|----------|-----------------------|-----------------------|------------|------------|----------|-------|------|
-| 1        | 2020-06-14-00.00.00   | 2020-12-31-23.59.59   | 1          | 35455      | 0        | 35.50 | EUR  |
-| 1        | 2020-06-14-15.00.00   | 2020-06-14-18.30.00   | 2          | 35455      | 1        | 25.45 | EUR  |
-| 1        | 2020-06-15-00.00.00   | 2020-06-15-11.00.00   | 3          | 35455      | 1        | 30.50 | EUR  |
-| 1        | 2020-06-15-16.00.00   | 2020-12-31-23.59.59   | 4          | 35455      | 1        | 38.95 | EUR  |
+- **Swagger UI:** [http://localhost:8080/swagger-ui/index.html#/](http://localhost:8080/swagger-ui/index.html#/)
+- To start the application:
+  1. Execute `./gradlew build` (recommended).
+  2.  Run the `InditexApplication` class.
+  3. Use the following Docker command:
+     ```bash
+     docker-compose up --build
+     ```
+- The application runs with **Java 21** via `eclipse-temurin:21-jdk-alpine`.
 
-**Pruebas:**
+### ✅ Example API Responses
 
-Adicionalmente, se espera que desarrolles pruebas para el endpoint REST que validen las siguientes solicitudes al servicio utilizando los datos de ejemplo proporcionados:
+- **200 OK**  
+  [http://localhost:8080/v1/prices?applicationDate=2020-06-14T15%3A00%3A00&productId=35455&brandId=1](http://localhost:8080/v1/prices?applicationDate=2020-06-14T15%3A00%3A00&productId=35455&brandId=1)
 
-1. Prueba 1: Realizar una petición a las 10:00 del día 14 para el producto 35455 y la marca 1 (ZARA).
+- **404 NOT_FOUND**  
+  [http://localhost:8080/v1/prices?applicationDate=2026-06-14T15%3A00%3A00&productId=35455&brandId=1](http://localhost:8080/v1/prices?applicationDate=2026-06-14T15%3A00%3A00&productId=35455&brandId=1)
 
-2. Prueba 2: Realizar una petición a las 16:00 del día 14 para el producto 35455 y la marca 1 (ZARA).
+- **400 BAD_REQUEST**  
+  [http://localhost:8080/v1/prices?applicationDate=2020-06-14T15%3A00%3A00&productId=aab&brandId=1](http://localhost:8080/v1/prices?applicationDate=2020-06-14T15%3A00%3A00&productId=aab&brandId=1)
 
-3. Prueba 3: Realizar una petición a las 21:00 del día 14 para el producto 35455 y la marca 1 (ZARA).
+---
 
-4. Prueba 4: Realizar una petición a las 10:00 del día 15 para el producto 35455 y la marca 1 (ZARA).
-
-5. Prueba 5: Realizar una petición a las 21:00 del día 16 para el producto 35455 y la marca 1 (ZARA).
-
-**Comentarios adicionales:**
-
-- Asegúrate de que el servicio pueda manejar solicitudes para diferentes productos y marcas, y devolver resultados precisos en función de los parámetros proporcionados.
-
-- Puedes usar cualquier biblioteca o tecnología de pruebas que consideres adecuada para validar el comportamiento del servicio REST.
+© 2025 - Developed for Paradigma Digital

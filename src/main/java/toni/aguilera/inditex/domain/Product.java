@@ -1,8 +1,6 @@
 package toni.aguilera.inditex.domain;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class Product {
     private final ProductId productId;

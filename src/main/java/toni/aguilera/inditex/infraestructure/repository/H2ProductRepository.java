@@ -1,36 +1,45 @@
 package toni.aguilera.inditex.infraestructure.repository;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
-import toni.aguilera.inditex.domain.PricesRepository;
 import toni.aguilera.inditex.domain.Product;
 import toni.aguilera.inditex.domain.ProductId;
 import toni.aguilera.inditex.domain.ProductQuery;
+import toni.aguilera.inditex.domain.ProductRepository;
+import toni.aguilera.inditex.domain.exception.ProductNotFoundException;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Map;
 
 @Repository
-public class H2PricesRepository implements PricesRepository {
+public class H2ProductRepository implements ProductRepository {
     private final NamedParameterJdbcTemplate jdbcTemplate;
-    public H2PricesRepository(NamedParameterJdbcTemplate jdbcTemplate) {
+
+    public H2ProductRepository(NamedParameterJdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
     @Override
-    public List<Product> find(ProductQuery query) {
+    public Product find(ProductQuery query) {
         String sql = """
                 SELECT * FROM PRICES
-                WHERE START_DATE <= :date AND END_DATE >= :date
-                AND PRODUCT_ID = :productId AND BRAND_ID = :brand
+                WHERE START_DATE <= :date
+                  AND END_DATE >= :date
+                  AND PRODUCT_ID = :productId
+                  AND BRAND_ID = :brand
+                ORDER BY PRIORITY DESC
+                LIMIT 1
                 """;
         Map<String, Object> parameters = Map.of("productId", query.productId().id(),
                 "brand", query.brand().id(),
                 "date", query.time().getValue());
-
-        return jdbcTemplate.query(sql, parameters, mapResultSetToProduct());
+        try {
+            return jdbcTemplate.queryForObject(sql, parameters, mapResultSetToProduct());
+        } catch (EmptyResultDataAccessException ex) {
+            throw new ProductNotFoundException();
+        }
     }
 
     private RowMapper<Product> mapResultSetToProduct() {

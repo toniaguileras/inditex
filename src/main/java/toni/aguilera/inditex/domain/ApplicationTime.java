@@ -9,10 +9,6 @@ import java.util.Objects;
 public class ApplicationTime {
     private final LocalDateTime value;
 
-    public LocalDateTime getValue() {
-        return value;
-    }
-
     public ApplicationTime(String value) {
         try {
             this.value = LocalDateTime.parse(value);
@@ -23,6 +19,10 @@ public class ApplicationTime {
 
     public ApplicationTime(LocalDateTime value) {
         this.value = value;
+    }
+
+    public LocalDateTime getValue() {
+        return value;
     }
 
     public String format() {

@@ -1,3 +1,4 @@
 package toni.aguilera.inditex.domain;
 
-public record Brand(Integer id) {}
+public record Brand(Integer id) {
+}

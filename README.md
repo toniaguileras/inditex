@@ -56,6 +56,13 @@ The project follows a **hexagonal architecture**, divided into the following lay
      ```
 - The application runs with **Java 21** via `eclipse-temurin:21-jdk-alpine`.
 
+#### 🛢️ Database Access
+- For connecting to the database, open:
+  - [http://localhost:8080/h2-console](http://localhost:8080/h2-console)
+    - **JDBC URL:** `jdbc:h2:mem:testdb`
+    - **User:** `sa`
+    - **Password:** _not required_
+
 ### ✅ Example API Responses
 
 - **200 OK**  

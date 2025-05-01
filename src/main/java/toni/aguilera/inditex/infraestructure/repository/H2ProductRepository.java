@@ -32,8 +32,8 @@ public class H2ProductRepository implements ProductRepository {
                 ORDER BY PRIORITY DESC
                 LIMIT 1
                 """;
-        Map<String, Object> parameters = Map.of("productId", query.productId().id(),
-                "brand", query.brand().id(),
+        Map<String, Object> parameters = Map.of("productId", query.productId().getId(),
+                "brand", query.brand().getId(),
                 "date", query.time().getValue());
         try {
             return jdbcTemplate.queryForObject(sql, parameters, mapResultSetToProduct());

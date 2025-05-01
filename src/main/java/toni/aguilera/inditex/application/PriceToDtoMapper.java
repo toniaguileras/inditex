@@ -21,7 +21,7 @@ public interface PriceToDtoMapper {
         if (productId == null) {
             return 0;
         }
-        return productId.id();
+        return productId.getId();
     }
 
     @Named("applicationTimeToString")

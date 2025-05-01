@@ -32,10 +32,10 @@ class FindProductShould {
 
         Mockito.when(priceRepository.find(
                 new ProductQuery(new ApplicationTime(applicationDate),
-                        new ProductId(Integer.valueOf(productId)),
-                        new Brand(Integer.valueOf(brand))))).thenReturn(
+                        new ProductId(productId),
+                        new Brand(brand)))).thenReturn(
                 new Product(
-                        new ProductId(Integer.valueOf(productId)), startDate, endDate, 1, 22D));
+                        new ProductId(productId), startDate, endDate, 1, 22D));
         var findPrices = new FindProduct(priceRepository, mapper);
 
         var result = findPrices.execute(new FindProductCommand(applicationDate.toString(), productId, brand));

@@ -23,8 +23,8 @@ public class FindProduct {
 
     public ProductDto execute(FindProductCommand command) {
         var time = new ApplicationTime(command.applicationDate());
-        var productId = new ProductId(Integer.valueOf(command.productId()));
-        var brand = new Brand(Integer.valueOf(command.brand()));
+        var productId = new ProductId(command.productId());
+        var brand = new Brand(command.brand());
         var products = productRepository.find(new ProductQuery(time, productId, brand));
         return mapper.map(products);
     }

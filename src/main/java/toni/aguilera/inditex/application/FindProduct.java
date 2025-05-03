@@ -1,6 +1,5 @@
 package toni.aguilera.inditex.application;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import toni.aguilera.inditex.domain.ApplicationTime;
 import toni.aguilera.inditex.domain.Brand;
@@ -12,8 +11,6 @@ import toni.aguilera.inditex.domain.ProductRepository;
 public class FindProduct {
 
     private final ProductRepository productRepository;
-
-    @Autowired
     private final PriceToDtoMapper mapper;
 
     public FindProduct(ProductRepository productRepository, PriceToDtoMapper mapper) {

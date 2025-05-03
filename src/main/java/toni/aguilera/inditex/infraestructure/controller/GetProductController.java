@@ -3,7 +3,6 @@ package toni.aguilera.inditex.infraestructure.controller;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,13 +16,12 @@ import toni.aguilera.inditex.domain.exception.ProductNotFoundException;
 @Tag(name = "Product Prices", description = "@GET to retrieve information about product prices")
 public class GetProductController {
 
-    @Autowired
-    private final FindProduct findPrice;
-    @Autowired
-    private DtoToResponseMapper mapper;
+    private final FindProduct findProduct;
+    private final DtoToResponseMapper mapper;
 
-    public GetProductController(FindProduct findPrice) {
-        this.findPrice = findPrice;
+    public GetProductController(FindProduct findProduct, DtoToResponseMapper mapper) {
+        this.findProduct = findProduct;
+        this.mapper = mapper;
     }
 
     @GetMapping("v1/prices")
@@ -34,11 +32,11 @@ public class GetProductController {
     })
     public ResponseEntity<ProductResponse> get(@RequestParam("applicationDate") String applicationDate, @RequestParam("productId") String productId, @RequestParam("brandId") String brandId) {
         try {
-            var price = findPrice.execute(new FindProductCommand(applicationDate, productId, brandId));
-            if (price == null) {
+            var product = findProduct.execute(new FindProductCommand(applicationDate, productId, brandId));
+            if (product == null) {
                 return ResponseEntity.notFound().build();
             }
-            return ResponseEntity.ok(mapper.toResponse(price));
+            return ResponseEntity.ok(mapper.toResponse(product));
         } catch (ProductNotFoundException e) {
             return ResponseEntity.notFound().build();
         } catch (IllegalArgumentException e) {

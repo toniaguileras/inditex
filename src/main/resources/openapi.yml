@@ -9,15 +9,23 @@ components:
       type: object
       properties:
         productId:
+          type: integer
+          format: int32
+          example: 35455
+        startDate:
           type: string
-          example: '35455'
+          example: '2020-06-14T00:00:00Z'
+        endDate:
+          type: string
+          example: '2020-12-31T23:59:59Z'
+        priceList:
+          type: integer
+          format: int32
+          example: 1
         price:
           type: number
-          format: float
+          format: double
           example: 35.50
-        currency:
-          type: string
-          example: 'EUR'
 paths:
   /v1/prices:
     get:
@@ -33,7 +41,6 @@ paths:
           description: The application date in 'yyyy-MM-dd'T'HH:mm:ss' format.
           schema:
             type: string
-            format: date-time
             example: '2020-06-14T10:00:00'
         - name: productId
           in: query
@@ -58,5 +65,7 @@ paths:
                 $ref: '#/components/schemas/ProductResponse'
         '404':
           description: Product price not found.
+          content: {}
         '400':
           description: Invalid parameters used.
+          content: {}

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import toni.aguilera.generated.api.ProductPricesApi;
+import toni.aguilera.generated.model.ProductResponse;
 import toni.aguilera.inditex.application.product.FindProduct;
 import toni.aguilera.inditex.application.product.FindProductCommand;
 import toni.aguilera.inditex.domain.exception.ProductNotFoundException;
@@ -32,7 +33,8 @@ public class GetProductController implements ProductPricesApi {
             @ApiResponse(responseCode = "404", description = "Product price not found"),
             @ApiResponse(responseCode = "400", description = "Invalid parameters used")
     })
-    public ResponseEntity<ProductResponse> get(@RequestParam("applicationDate") String applicationDate, @RequestParam("productId") String productId, @RequestParam("brandId") String brandId) {
+    @Override
+    public ResponseEntity<ProductResponse> getProductPrice(@RequestParam("applicationDate") String applicationDate, @RequestParam("productId") String productId, @RequestParam("brandId") String brandId) {
         try {
             var product = findProduct.execute(new FindProductCommand(applicationDate, productId, brandId));
             if (product == null) {

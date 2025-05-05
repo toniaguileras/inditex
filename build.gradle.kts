@@ -3,6 +3,7 @@ plugins {
     id("org.springframework.boot") version "3.4.4"
     id("io.spring.dependency-management") version "1.1.7"
     id("org.jlleitschuh.gradle.ktlint") version "11.6.1"
+    id("org.openapi.generator") version "7.4.0"
 }
 
 group = "toni.aguilera"
@@ -16,6 +17,36 @@ java {
 
 repositories {
     mavenCentral()
+}
+
+openApiGenerate {
+    generatorName.set("spring")
+    inputSpec.set("$rootDir/src/main/resources/openapi.yml")
+    outputDir.set("${project.buildDir}/generated")
+    apiPackage.set("toni.aguilera.generated.api")
+    modelPackage.set("toni.aguilera.generated.model")
+    invokerPackage.set("toni.aguilera.generated")
+    configOptions.set(
+        mapOf(
+            "interfaceOnly" to "true",
+            "skipDefaultInterface" to "false",
+            "useSpringBoot3" to "true",
+            "java8" to "true",
+            "dateLibrary" to "java8",
+            "useTags" to "true",
+            "documentationProvider" to "none",
+            "openApiNullable" to "false",
+            "useOptional" to "true"
+        )
+    )
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir("$buildDir/generated/src/main/java")
+        }
+    }
 }
 
 dependencies {
@@ -37,4 +68,7 @@ dependencies {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+tasks.compileJava {
+    dependsOn(tasks.openApiGenerate)
 }

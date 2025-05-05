@@ -4,10 +4,10 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
-import toni.aguilera.inditex.domain.Product;
-import toni.aguilera.inditex.domain.ProductId;
-import toni.aguilera.inditex.domain.ProductQuery;
-import toni.aguilera.inditex.domain.ProductRepository;
+import toni.aguilera.inditex.domain.product.Product;
+import toni.aguilera.inditex.domain.product.ProductId;
+import toni.aguilera.inditex.domain.product.ProductQuery;
+import toni.aguilera.inditex.domain.repository.ProductRepository;
 import toni.aguilera.inditex.domain.exception.ProductNotFoundException;
 
 import java.time.LocalDateTime;

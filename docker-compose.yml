@@ -8,3 +8,5 @@ services:
     container_name: inditex-api
     ports:
       - "8080:8080"
+      - "8082:8082"
+      - "9092:9092"

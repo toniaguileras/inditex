@@ -1,6 +1,6 @@
-package toni.aguilera.inditex.infraestructure.controller;
+package toni.aguilera.inditex.infraestructure.controller.product;
 
-import toni.aguilera.inditex.application.ProductDto;
+import toni.aguilera.inditex.application.product.ProductDto;
 
 public record ProductResponse(Integer productId,
                               String startDate,

@@ -53,6 +53,8 @@ The project follows a **hexagonal architecture**, divided into the following lay
 
 ## 🚀 API Usage
 
+- This project follows an **API First** approach.  
+- The OpenAPI contract is available at: [`swagger.yml`](src/main/resources/swagger.yml)
 - **Swagger UI:** [http://localhost:8080/swagger-ui/index.html#/](http://localhost:8080/swagger-ui/index.html#/)
 - To start the application:
     1. Execute `./gradlew build` (recommended).
@@ -62,6 +64,8 @@ The project follows a **hexagonal architecture**, divided into the following lay
        docker-compose up --build
        ```
 - The application runs with **Java 21** via `eclipse-temurin:21-jdk-alpine`.
+- I also created a **postman collection** to test every test environment
+  expected: https://www.postman.com/toniaguilera/inditex/collection/nuwfecn/inditex?action=share&creator=7511563
 
 #### 🛢️ Database Access
 

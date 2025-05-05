@@ -1,11 +1,12 @@
-package toni.aguilera.inditex.application;
+package toni.aguilera.inditex.application.product;
 
 import org.springframework.stereotype.Service;
-import toni.aguilera.inditex.domain.ApplicationTime;
-import toni.aguilera.inditex.domain.Brand;
-import toni.aguilera.inditex.domain.ProductId;
-import toni.aguilera.inditex.domain.ProductQuery;
-import toni.aguilera.inditex.domain.ProductRepository;
+import toni.aguilera.inditex.application.mapper.PriceToDtoMapper;
+import toni.aguilera.inditex.domain.product.ApplicationTime;
+import toni.aguilera.inditex.domain.product.Brand;
+import toni.aguilera.inditex.domain.product.ProductId;
+import toni.aguilera.inditex.domain.product.ProductQuery;
+import toni.aguilera.inditex.domain.repository.ProductRepository;
 
 @Service
 public class FindProduct {

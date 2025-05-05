@@ -22,6 +22,7 @@ dependencies {
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("jakarta.annotation:jakarta.annotation-api:2.1.1")
     implementation("com.h2database:h2")
     runtimeOnly("com.h2database:h2")
     testImplementation("org.mockito:mockito-core:4.0.0")

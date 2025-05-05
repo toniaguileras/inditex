@@ -1,11 +1,12 @@
-package toni.aguilera.inditex.application;
+package toni.aguilera.inditex.application.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
-import toni.aguilera.inditex.domain.ApplicationTime;
-import toni.aguilera.inditex.domain.Product;
-import toni.aguilera.inditex.domain.ProductId;
+import toni.aguilera.inditex.application.product.ProductDto;
+import toni.aguilera.inditex.domain.product.ApplicationTime;
+import toni.aguilera.inditex.domain.product.Product;
+import toni.aguilera.inditex.domain.product.ProductId;
 
 @Mapper(componentModel = "spring")
 public interface PriceToDtoMapper {

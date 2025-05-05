@@ -1,4 +1,4 @@
-package toni.aguilera.inditex.domain;
+package toni.aguilera.inditex.domain.product;
 
 import java.util.Objects;
 

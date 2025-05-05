@@ -2,12 +2,16 @@ package toni.aguilera.inditex.application;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import toni.aguilera.inditex.domain.ApplicationTime;
-import toni.aguilera.inditex.domain.Brand;
-import toni.aguilera.inditex.domain.Product;
-import toni.aguilera.inditex.domain.ProductId;
-import toni.aguilera.inditex.domain.ProductQuery;
-import toni.aguilera.inditex.domain.ProductRepository;
+import toni.aguilera.inditex.application.mapper.PriceToDtoMapper;
+import toni.aguilera.inditex.application.product.FindProduct;
+import toni.aguilera.inditex.application.product.FindProductCommand;
+import toni.aguilera.inditex.application.product.ProductDto;
+import toni.aguilera.inditex.domain.product.ApplicationTime;
+import toni.aguilera.inditex.domain.product.Brand;
+import toni.aguilera.inditex.domain.product.Product;
+import toni.aguilera.inditex.domain.product.ProductId;
+import toni.aguilera.inditex.domain.product.ProductQuery;
+import toni.aguilera.inditex.domain.repository.ProductRepository;
 
 import java.time.LocalDateTime;
 

@@ -54,7 +54,7 @@ The project follows a **hexagonal architecture**, divided into the following lay
 ## 🚀 API Usage
 
 - This project follows an **API First** approach.  
-- The OpenAPI contract is available at: [`swagger.yml`](src/main/resources/swagger.yml)
+- The OpenAPI contract is available at: [`openapi.yml`](src/main/resources/openapi.yml)
 - **Swagger UI:** [http://localhost:8080/swagger-ui/index.html#/](http://localhost:8080/swagger-ui/index.html#/)
 - To start the application:
     1. Execute `./gradlew build` (recommended).

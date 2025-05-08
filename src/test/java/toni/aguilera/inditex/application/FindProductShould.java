@@ -40,9 +40,9 @@ class FindProductShould {
                         new Brand(brand)))).thenReturn(
                 new Product(
                         new ProductId(productId), startDate, endDate, 1, 22D));
-        var findPrices = new FindProduct(priceRepository, mapper);
+        var findProduct = new FindProduct(priceRepository, mapper);
 
-        var result = findPrices.execute(new FindProductCommand(applicationDate.toString(), productId, brand));
+        var result = findProduct.execute(new FindProductCommand(applicationDate.toString(), productId, brand));
         assertNotNull(result);
         assertEquals(22D, result.price());
     }
@@ -55,10 +55,10 @@ class FindProductShould {
 
         var priceRepository = Mockito.mock(ProductRepository.class);
         var mapper = Mockito.mock(PriceToDtoMapper.class);
-        var findPrices = new FindProduct(priceRepository, mapper);
+        var findProduct = new FindProduct(priceRepository, mapper);
 
         assertThrows(IllegalArgumentException.class, () -> {
-            findPrices.execute(new FindProductCommand(invalidApplicationDate, productId, brand));
+            findProduct.execute(new FindProductCommand(invalidApplicationDate, productId, brand));
         });
     }
 }
